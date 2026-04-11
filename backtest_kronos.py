@@ -35,6 +35,7 @@ SAMPLE_COUNT = 5
 STEP = 24
 TOP_P = 0.95
 TEMP = 1.0
+SEED = 42
 
 LONG_THRESHOLD = 0.60
 SHORT_THRESHOLD = 0.40
@@ -42,6 +43,13 @@ SHORT_THRESHOLD = 0.40
 FEE_BPS_PER_SIDE = 5
 SLIPPAGE_BPS_PER_SIDE = 2
 ROUND_TRIP_COST = 2 * ((FEE_BPS_PER_SIDE + SLIPPAGE_BPS_PER_SIDE) / 10_000)
+
+
+def set_seed(seed: int) -> None:
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
 
 
 def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -249,6 +257,7 @@ def main() -> None:
     if not CSV_PATH.exists():
         raise FileNotFoundError(f"Place your TradingView CSV at {CSV_PATH}")
 
+    set_seed(SEED)
     Path("outputs").mkdir(exist_ok=True)
 
     df = normalize_columns(pd.read_csv(CSV_PATH))
@@ -257,6 +266,7 @@ def main() -> None:
     print(f"rows: {len(df)}", flush=True)
     print(f"range: {df['timestamp'].iloc[0]} -> {df['timestamp'].iloc[-1]}", flush=True)
     print(f"device: {device}", flush=True)
+    print(f"seed: {SEED}", flush=True)
 
     tokenizer = KronosTokenizer.from_pretrained("NeoQuasar/Kronos-Tokenizer-2k")
     model = Kronos.from_pretrained("NeoQuasar/Kronos-mini")
