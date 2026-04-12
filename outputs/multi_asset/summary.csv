@@ -1,0 +1,4 @@
+asset,csv_path,rows,start,end,signals,trades,total_return,win_rate,max_drawdown,trades_path,equity_path
+btc_5m,"data/MEXC_BTCUSDT.P, 5.csv",21869,2026-01-26,2026-04-11 22:20:00,896,896,-0.7639487448254048,0.40513392857142855,-0.7668737386998796,outputs/multi_asset/btc_5m_trades.csv,outputs/multi_asset/btc_5m_equity.png
+sol_5m,"data/MEXC_SOLUSDT.P, 5 (1).csv",21869,2026-01-26,2026-04-11 22:20:00,896,896,-0.8189938567018414,0.4095982142857143,-0.8467675589388566,outputs/multi_asset/sol_5m_trades.csv,outputs/multi_asset/sol_5m_equity.png
+zec_5m,"data/BINANCE_ZECUSDT, 5.csv",21869,2026-01-26,2026-04-11 22:20:00,896,896,-0.872814347632545,0.42857142857142855,-0.8844336470499496,outputs/multi_asset/zec_5m_trades.csv,outputs/multi_asset/zec_5m_equity.png
