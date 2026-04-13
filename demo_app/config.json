@@ -20,12 +20,68 @@
   },
   "demos": [
     {
+      "id": "btc_1m_binance",
+      "label": "BTC/USDT 1m",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "BTCUSDT",
+      "interval": "1m",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
       "id": "btc_1h_binance",
       "label": "BTC/USDT 1h",
       "provider": "binance",
       "market": "spot",
       "symbol": "BTCUSDT",
       "interval": "1h",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "btc_12h_binance",
+      "label": "BTC/USDT 12h",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "BTCUSDT",
+      "interval": "12h",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "btc_1d_binance",
+      "label": "BTC/USDT 1d",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "BTCUSDT",
+      "interval": "1d",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "btc_2d_binance",
+      "label": "BTC/USDT 2d",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "BTCUSDT",
+      "interval": "2d",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "btc_1w_binance",
+      "label": "BTC/USDT 1w",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "BTCUSDT",
+      "interval": "1w",
+      "lookback": 260,
       "strategy": {
         "mode": "threshold"
       }
@@ -42,12 +98,224 @@
       }
     },
     {
+      "id": "eth_1m_binance",
+      "label": "ETH/USDT 1m",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "ETHUSDT",
+      "interval": "1m",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "eth_1h_binance",
+      "label": "ETH/USDT 1h",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "ETHUSDT",
+      "interval": "1h",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "eth_12h_binance",
+      "label": "ETH/USDT 12h",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "ETHUSDT",
+      "interval": "12h",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "eth_1d_binance",
+      "label": "ETH/USDT 1d",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "ETHUSDT",
+      "interval": "1d",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "eth_2d_binance",
+      "label": "ETH/USDT 2d",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "ETHUSDT",
+      "interval": "2d",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "eth_1w_binance",
+      "label": "ETH/USDT 1w",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "ETHUSDT",
+      "interval": "1w",
+      "lookback": 260,
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "eth_5m_binance",
+      "label": "ETH/USDT 5m",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "ETHUSDT",
+      "interval": "5m",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "sol_1m_binance",
+      "label": "SOL/USDT 1m",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "SOLUSDT",
+      "interval": "1m",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
       "id": "sol_5m_binance",
       "label": "SOL/USDT 5m",
       "provider": "binance",
       "market": "spot",
       "symbol": "SOLUSDT",
       "interval": "5m",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "near_1m_binance",
+      "label": "NEAR/USDT 1m",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "NEARUSDT",
+      "interval": "1m",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "near_1h_binance",
+      "label": "NEAR/USDT 1h",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "NEARUSDT",
+      "interval": "1h",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "near_12h_binance",
+      "label": "NEAR/USDT 12h",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "NEARUSDT",
+      "interval": "12h",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "near_1d_binance",
+      "label": "NEAR/USDT 1d",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "NEARUSDT",
+      "interval": "1d",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "near_2d_binance",
+      "label": "NEAR/USDT 2d",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "NEARUSDT",
+      "interval": "2d",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "near_1w_binance",
+      "label": "NEAR/USDT 1w",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "NEARUSDT",
+      "interval": "1w",
+      "lookback": 260,
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "near_5m_binance",
+      "label": "NEAR/USDT 5m",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "NEARUSDT",
+      "interval": "5m",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "sol_1d_binance",
+      "label": "SOL/USDT 1d",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "SOLUSDT",
+      "interval": "1d",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "sol_12h_binance",
+      "label": "SOL/USDT 12h",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "SOLUSDT",
+      "interval": "12h",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "sol_2d_binance",
+      "label": "SOL/USDT 2d",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "SOLUSDT",
+      "interval": "2d",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "sol_1w_binance",
+      "label": "SOL/USDT 1w",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "SOLUSDT",
+      "interval": "1w",
+      "lookback": 260,
       "strategy": {
         "mode": "threshold"
       }
@@ -64,12 +332,171 @@
       }
     },
     {
+      "id": "zec_1m_binance",
+      "label": "ZEC/USDT 1m",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "ZECUSDT",
+      "interval": "1m",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
       "id": "zec_5m_binance",
       "label": "ZEC/USDT 5m",
       "provider": "binance",
       "market": "spot",
       "symbol": "ZECUSDT",
       "interval": "5m",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "zec_1d_binance",
+      "label": "ZEC/USDT 1d",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "ZECUSDT",
+      "interval": "1d",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "zec_12h_binance",
+      "label": "ZEC/USDT 12h",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "ZECUSDT",
+      "interval": "12h",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "zec_2d_binance",
+      "label": "ZEC/USDT 2d",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "ZECUSDT",
+      "interval": "2d",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "zec_1w_binance",
+      "label": "ZEC/USDT 1w",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "ZECUSDT",
+      "interval": "1w",
+      "lookback": 260,
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "zec_1h_binance",
+      "label": "ZEC/USDT 1h",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "ZECUSDT",
+      "interval": "1h",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "nq_1m_kaggle",
+      "label": "NASDAQ NQ 1m",
+      "provider": "csv",
+      "market": "futures",
+      "symbol": "CME_MINI:NQ1!",
+      "interval": "1m",
+      "source_path": "data/demo_app/NQ_in_1_minute.csv",
+      "source_interval": "1m",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "nq_5m_kaggle",
+      "label": "NASDAQ NQ 5m",
+      "provider": "csv",
+      "market": "futures",
+      "symbol": "CME_MINI:NQ1!",
+      "interval": "5m",
+      "source_path": "data/demo_app/NQ_in_5_minute.csv",
+      "source_interval": "5m",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "nq_1h_kaggle",
+      "label": "NASDAQ NQ 1h",
+      "provider": "csv",
+      "market": "futures",
+      "symbol": "CME_MINI:NQ1!",
+      "interval": "1h",
+      "source_path": "data/demo_app/NQ_in_1_hour.csv",
+      "source_interval": "1h",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "nq_12h_kaggle",
+      "label": "NASDAQ NQ 12h",
+      "provider": "csv",
+      "market": "futures",
+      "symbol": "CME_MINI:NQ1!",
+      "interval": "12h",
+      "source_path": "data/demo_app/NQ_in_1_hour.csv",
+      "source_interval": "1h",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "nq_1d_kaggle",
+      "label": "NASDAQ NQ 1d",
+      "provider": "csv",
+      "market": "futures",
+      "symbol": "CME_MINI:NQ1!",
+      "interval": "1d",
+      "source_path": "data/demo_app/NQ_in_daily.csv",
+      "source_interval": "1d",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "nq_2d_kaggle",
+      "label": "NASDAQ NQ 2d",
+      "provider": "csv",
+      "market": "futures",
+      "symbol": "CME_MINI:NQ1!",
+      "interval": "2d",
+      "source_path": "data/demo_app/NQ_in_daily.csv",
+      "source_interval": "1d",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "nq_1w_kaggle",
+      "label": "NASDAQ NQ 1w",
+      "provider": "csv",
+      "market": "futures",
+      "symbol": "CME_MINI:NQ1!",
+      "interval": "1w",
+      "lookback": 260,
+      "source_path": "data/demo_app/NQ_in_weekly.csv",
+      "source_interval": "1w",
       "strategy": {
         "mode": "threshold"
       }

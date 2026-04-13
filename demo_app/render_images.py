@@ -17,6 +17,7 @@
 from __future__ import annotations
 
 import argparse
+import math
 from pathlib import Path
 from typing import Any
 
@@ -30,10 +31,48 @@ APP_DIR = Path(__file__).resolve().parent
 ROOT = APP_DIR.parents[0]
 DEFAULT_OUTPUT_DIR = ROOT / "outputs" / "demo_app"
 DEFAULT_RENDER_IDS = [
-    "btc_1h_binance",
+    "btc_1m_binance",
     "btc_5m_binance",
-    "sol_1h_binance",
+    "btc_1h_binance",
+    "btc_12h_binance",
+    "btc_1d_binance",
+    "btc_2d_binance",
+    "btc_1w_binance",
+    "eth_1m_binance",
+    "eth_5m_binance",
+    "eth_1h_binance",
+    "eth_12h_binance",
+    "eth_1d_binance",
+    "eth_2d_binance",
+    "eth_1w_binance",
+    "near_1m_binance",
+    "near_5m_binance",
+    "near_1h_binance",
+    "near_12h_binance",
+    "near_1d_binance",
+    "near_2d_binance",
+    "near_1w_binance",
+    "sol_1m_binance",
     "sol_5m_binance",
+    "sol_1h_binance",
+    "sol_12h_binance",
+    "sol_1d_binance",
+    "sol_2d_binance",
+    "sol_1w_binance",
+    "zec_1m_binance",
+    "zec_5m_binance",
+    "zec_1h_binance",
+    "zec_12h_binance",
+    "zec_1d_binance",
+    "zec_2d_binance",
+    "zec_1w_binance",
+    "nq_1m_kaggle",
+    "nq_5m_kaggle",
+    "nq_1h_kaggle",
+    "nq_12h_kaggle",
+    "nq_1d_kaggle",
+    "nq_2d_kaggle",
+    "nq_1w_kaggle",
 ]
 
 
@@ -159,16 +198,34 @@ def render_contact_sheet(image_paths: list[Path], output_path: Path) -> None:
     if not image_paths:
         return
     images = [plt.imread(path) for path in image_paths]
-    fig, axes = plt.subplots(2, 2, figsize=(16, 10), dpi=140, facecolor="#f5f2e8")
-    for ax, image, path in zip(axes.ravel(), images, image_paths, strict=False):
+    cols = min(3, max(1, math.ceil(math.sqrt(len(images)))))
+    rows = math.ceil(len(images) / cols)
+    fig, axes = plt.subplots(
+        rows,
+        cols,
+        figsize=(cols * 6.2, rows * 3.9),
+        dpi=140,
+        facecolor="#f5f2e8",
+        layout="constrained",
+    )
+    flat_axes = np.atleast_1d(axes).ravel()
+    for ax, image, path in zip(flat_axes, images, image_paths, strict=False):
         ax.imshow(image)
         ax.set_title(path.stem, fontsize=12, color="#1f231d")
         ax.axis("off")
-    for ax in axes.ravel()[len(images):]:
+    for ax in flat_axes[len(images):]:
         ax.axis("off")
-    fig.tight_layout(pad=1.0)
-    fig.savefig(output_path, facecolor=fig.get_facecolor())
+    fig.savefig(output_path, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close(fig)
+
+
+def is_higher_timeframe(interval: str) -> bool:
+    lower = interval.lower()
+    return lower.endswith("d") or lower.endswith("w")
+
+
+def is_bridge_timeframe(interval: str) -> bool:
+    return interval.lower() in {"12h", "2d"}
 
 
 def main() -> None:
@@ -182,19 +239,49 @@ def main() -> None:
     config = load_config(args.config)
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
-    image_paths: list[Path] = []
+    rendered: list[tuple[str, Path]] = []
     for demo_id in args.ids:
         demo = get_demo(config, demo_id)
         print(f"Rendering {demo.id}: {demo.provider}/{demo.market} {demo.symbol} {demo.interval}")
         payload = run_forecast(config, demo)
         image_path = args.output_dir / f"{demo.id}.png"
         render_chart(payload, image_path, visible_bars=args.visible_bars)
-        image_paths.append(image_path)
+        rendered.append((demo.interval, image_path))
+        forecast = payload["forecast"]
+        strategy = payload["strategy"]
+        print(
+            "  "
+            f"Signal={strategy['side']} | "
+            f"p_up={forecast['p_up'] * 100:.1f}% | "
+            f"forecast_return={forecast['forecast_return'] * 100:+.2f}% | "
+            f"forecast_until={forecast['forecast_until']}"
+        )
         print(f"Saved {image_path}")
 
-    contact_sheet = args.output_dir / "btc_sol_1h_5m_grid.png"
-    render_contact_sheet(image_paths, contact_sheet)
-    print(f"Saved {contact_sheet}")
+    intraday_paths = [
+        path
+        for interval, path in rendered
+        if not is_bridge_timeframe(interval) and not is_higher_timeframe(interval)
+    ]
+    bridge_timeframe_paths = [path for interval, path in rendered if is_bridge_timeframe(interval)]
+    higher_timeframe_paths = [
+        path for interval, path in rendered if is_higher_timeframe(interval) and not is_bridge_timeframe(interval)
+    ]
+
+    if intraday_paths:
+        contact_sheet = args.output_dir / "market_snapshot_grid.png"
+        render_contact_sheet(intraday_paths, contact_sheet)
+        print(f"Saved {contact_sheet}")
+
+    if bridge_timeframe_paths:
+        bridge_timeframe_sheet = args.output_dir / "bridge_timeframe_snapshot_grid.png"
+        render_contact_sheet(bridge_timeframe_paths, bridge_timeframe_sheet)
+        print(f"Saved {bridge_timeframe_sheet}")
+
+    if higher_timeframe_paths:
+        higher_timeframe_sheet = args.output_dir / "higher_timeframe_snapshot_grid.png"
+        render_contact_sheet(higher_timeframe_paths, higher_timeframe_sheet)
+        print(f"Saved {higher_timeframe_sheet}")
 
 
 if __name__ == "__main__":
