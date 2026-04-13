@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kronos Demo Lab</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="toolbar" aria-label="Demo controls">
+        <div>
+          <p class="eyebrow">Kronos demo lab</p>
+          <h1 id="title">Choose a market</h1>
+        </div>
+        <div class="controls">
+          <label>
+            Demo
+            <select id="demoSelect"></select>
+          </label>
+          <button id="loadCandles" type="button">Load Candles</button>
+          <button id="runForecast" type="button">Run Forecast</button>
+        </div>
+      </section>
+
+      <section class="status-grid" aria-live="polite">
+        <article>
+          <span>Signal</span>
+          <strong id="side">-</strong>
+        </article>
+        <article>
+          <span>Upside Probability</span>
+          <strong id="pUp">-</strong>
+        </article>
+        <article>
+          <span>Forecast Return</span>
+          <strong id="forecastReturn">-</strong>
+        </article>
+        <article>
+          <span>Horizon</span>
+          <strong id="horizon">-</strong>
+        </article>
+      </section>
+
+      <section class="chart-band">
+        <canvas id="chart" width="1280" height="620" aria-label="Candlestick chart"></canvas>
+      </section>
+
+      <section class="details">
+        <div>
+          <h2>Latest Run</h2>
+          <p id="summary">Load candles, then run a forecast.</p>
+        </div>
+        <pre id="payload">{}</pre>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

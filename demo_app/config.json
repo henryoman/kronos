@@ -1,0 +1,78 @@
+{
+  "server": {
+    "host": "127.0.0.1",
+    "port": 7071
+  },
+  "model": {
+    "tokenizer_id": "NeoQuasar/Kronos-Tokenizer-2k",
+    "model_id": "NeoQuasar/Kronos-mini",
+    "device": "auto",
+    "max_context": 2048
+  },
+  "defaults": {
+    "lookback": 360,
+    "pred_len": 24,
+    "sample_count": 5,
+    "top_p": 0.95,
+    "temperature": 1.0,
+    "long_threshold": 0.6,
+    "short_threshold": 0.4
+  },
+  "demos": [
+    {
+      "id": "btc_1h_binance",
+      "label": "BTC/USDT 1h",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "BTCUSDT",
+      "interval": "1h",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "btc_5m_binance",
+      "label": "BTC/USDT 5m",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "BTCUSDT",
+      "interval": "5m",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "sol_5m_binance",
+      "label": "SOL/USDT 5m",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "SOLUSDT",
+      "interval": "5m",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "sol_1h_binance",
+      "label": "SOL/USDT 1h",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "SOLUSDT",
+      "interval": "1h",
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "zec_5m_binance",
+      "label": "ZEC/USDT 5m",
+      "provider": "binance",
+      "market": "spot",
+      "symbol": "ZECUSDT",
+      "interval": "5m",
+      "strategy": {
+        "mode": "threshold"
+      }
+    }
+  ]
+}
