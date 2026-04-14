@@ -1,2 +1,0 @@
-slug,mode,csv_path,rows,start,end,signals,traded_signals,coverage,forecast_direction_accuracy,threshold_signal_accuracy,gross_win_rate,net_win_rate,avg_forecast_return,avg_actual_return_from_entry,avg_net_return,total_compounded_return,max_drawdown
-nq_5m_random_seed7,random,data/demo_app/NQ_in_5_minute.csv,5452,2025-09-14 22:00:00,2025-10-10 15:15:00,64,64,1.0,0.5,0.546875,0.546875,0.21875,-0.00014616859681992124,0.00011561709947151277,-0.0013687815728740168,-0.08402774139162239,-0.08082533354051835

@@ -1,2 +1,0 @@
-slug,asset,timeframe,source_interval,source_path,raw_source,sample_count,rows,signals,traded_signals,coverage,forecast_direction_accuracy,threshold_signal_accuracy,net_win_rate,total_return,max_drawdown,pred_len_bars,approx_horizon_hours
-btc_1h,btc,1h,1h,"data/BINANCE_BTCUSDT.P, 60.csv",binance_fresh,20,10000,401,317,0.7905236907730673,0.5261845386533666,0.5078864353312302,0.45110410094637227,-0.3461424058507232,-0.5170580765961006,24,24.0
