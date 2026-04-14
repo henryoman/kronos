@@ -1,0 +1,17 @@
+{
+  "asset": "btc",
+  "long_threshold": 0.6,
+  "lookback": 360,
+  "max_signals": null,
+  "pred_len": 24,
+  "sample_count": 20,
+  "short_threshold": 0.4,
+  "source_interval": "1h",
+  "source_path": "data/BINANCE_BTCUSDT.P, 60.csv",
+  "step": 24,
+  "symbol": "BTCUSDT",
+  "temperature": 1.0,
+  "timeframe": "1h",
+  "top_p": 0.95,
+  "use_binance": true
+}

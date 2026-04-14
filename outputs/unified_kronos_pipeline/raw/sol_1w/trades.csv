@@ -1,0 +1,2 @@
+signal_number,signal_timestamp,entry_timestamp,exit_timestamp,current_close,entry_open,exit_close,mean_final_pred_close,forecast_return,upside_probability,position,gross_return,net_return
+1,2025-07-28,2025-08-04,2026-01-12,161.97,161.98,137.87,174.880078125,0.07970660075939992,0.4,-1,0.14884553648598586,0.14744553648598585

@@ -500,6 +500,42 @@
       "strategy": {
         "mode": "threshold"
       }
+    },
+    {
+      "id": "nasdaq_1d_alphavantage",
+      "label": "Nasdaq 100 (QQQ) 1d",
+      "provider": "alphavantage",
+      "market": "equity",
+      "symbol": "QQQ",
+      "interval": "1d",
+      "lookback": 90,
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "nasdaq_2d_alphavantage",
+      "label": "Nasdaq 100 (QQQ) 2d",
+      "provider": "alphavantage",
+      "market": "equity",
+      "symbol": "QQQ",
+      "interval": "2d",
+      "lookback": 36,
+      "strategy": {
+        "mode": "threshold"
+      }
+    },
+    {
+      "id": "nasdaq_1w_alphavantage",
+      "label": "Nasdaq 100 (QQQ) 1w",
+      "provider": "alphavantage",
+      "market": "equity",
+      "symbol": "QQQ",
+      "interval": "1w",
+      "lookback": 260,
+      "strategy": {
+        "mode": "threshold"
+      }
     }
   ]
 }

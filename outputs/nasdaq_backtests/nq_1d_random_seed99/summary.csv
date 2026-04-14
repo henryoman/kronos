@@ -1,0 +1,2 @@
+slug,mode,csv_path,rows,start,end,signals,traded_signals,coverage,forecast_direction_accuracy,threshold_signal_accuracy,gross_win_rate,net_win_rate,avg_forecast_return,avg_actual_return_from_entry,avg_net_return,total_compounded_return,max_drawdown
+nq_1d_random_seed99,random,data/demo_app/NQ_in_daily.csv,6648,1999-06-29 22:00:00,2025-10-09 22:00:00,64,64,1.0,0.46875,0.484375,0.484375,0.46875,-0.0005990244953022784,0.023869981758756136,0.00048075708256038524,-0.059571572015280516,-0.4416137801552882

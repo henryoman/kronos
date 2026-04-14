@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import sys
 import time
 from dataclasses import dataclass
@@ -40,6 +41,7 @@ APP_DIR = Path(__file__).resolve().parent
 DEFAULT_CONFIG = APP_DIR / "config.json"
 
 HTTP_TIMEOUT = 20
+ALPHA_VANTAGE_URL = "https://www.alphavantage.co/query"
 PRICE_COLUMNS = ["open", "high", "low", "close"]
 FEATURE_COLUMNS = ["open", "high", "low", "close", "volume", "amount"]
 BINANCE_NATIVE_INTERVALS = {
@@ -62,6 +64,8 @@ BINANCE_NATIVE_INTERVALS = {
 }
 
 _MODEL_CACHE: dict[str, Any] = {}
+_ALPHA_VANTAGE_CACHE: dict[tuple[str, str, str, str], Any] = {}
+_ALPHA_VANTAGE_LAST_REQUEST_AT = 0.0
 
 
 @dataclass(frozen=True)
@@ -245,6 +249,79 @@ def request_json(url: str, params: dict[str, Any]) -> Any:
     return response.json()
 
 
+def get_alpha_vantage_api_key() -> str:
+    env_key = os.getenv("ALPHA_VANTAGE_API_KEY")
+    if env_key:
+        return env_key
+
+    env_path = ROOT / ".env"
+    if env_path.exists():
+        for line in env_path.read_text(encoding="utf-8").splitlines():
+            if line.startswith("ALPHA_VANTAGE_API_KEY="):
+                value = line.split("=", 1)[1].strip()
+                if value:
+                    return value
+    raise ValueError("ALPHA_VANTAGE_API_KEY is not configured.")
+
+
+def request_alpha_vantage(params: dict[str, Any]) -> dict[str, Any]:
+    global _ALPHA_VANTAGE_LAST_REQUEST_AT
+
+    function = str(params.get("function", ""))
+    symbol = str(params.get("symbol", ""))
+    interval = str(params.get("interval", ""))
+    outputsize = str(params.get("outputsize", ""))
+    cache_key = (function, symbol, interval, outputsize)
+    cached = _ALPHA_VANTAGE_CACHE.get(cache_key)
+    if cached is not None:
+        return cached
+
+    elapsed = time.time() - _ALPHA_VANTAGE_LAST_REQUEST_AT
+    if elapsed < 1.05:
+        time.sleep(1.05 - elapsed)
+
+    payload = request_json(
+        ALPHA_VANTAGE_URL,
+        {
+            **params,
+            "apikey": get_alpha_vantage_api_key(),
+            "datatype": "json",
+        },
+    )
+    _ALPHA_VANTAGE_LAST_REQUEST_AT = time.time()
+
+    if not payload:
+        raise ValueError("Alpha Vantage returned an empty response.")
+    if "Error Message" in payload:
+        raise ValueError(f"Alpha Vantage error: {payload['Error Message']}")
+    if "Information" in payload:
+        raise ValueError(f"Alpha Vantage info: {payload['Information']}")
+
+    _ALPHA_VANTAGE_CACHE[cache_key] = payload
+    return payload
+
+
+def alpha_vantage_series_to_frame(payload: dict[str, Any], series_key: str) -> pd.DataFrame:
+    series = payload.get(series_key)
+    if not isinstance(series, dict) or not series:
+        raise ValueError(f"Alpha Vantage response missing {series_key}.")
+
+    rows = []
+    for timestamp, values in series.items():
+        rows.append(
+            {
+                "timestamp": pd.to_datetime(timestamp, utc=True),
+                "open": float(values["1. open"]),
+                "high": float(values["2. high"]),
+                "low": float(values["3. low"]),
+                "close": float(values["4. close"]),
+                "volume": float(values.get("5. volume", 0.0)),
+                "amount": 0.0,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
 def resolve_source_path(path_value: str) -> Path:
     path = Path(path_value).expanduser()
     if path.is_absolute():
@@ -388,6 +465,38 @@ def fetch_bybit(demo: Demo, limit: int) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def fetch_alpha_vantage(demo: Demo, limit: int) -> pd.DataFrame:
+    upper_interval = demo.interval.upper()
+    if upper_interval in {"1D", "2D"}:
+        payload = request_alpha_vantage(
+            {
+                "function": "TIME_SERIES_DAILY",
+                "symbol": demo.symbol,
+                "outputsize": "compact",
+            }
+        )
+        frame = alpha_vantage_series_to_frame(payload, "Time Series (Daily)")
+        if upper_interval == "2D":
+            raw_limit = limit * interval_ratio(demo.interval, "1d") + 8
+            frame = frame.sort_values("timestamp").tail(raw_limit).reset_index(drop=True)
+            frame = resample_candles(frame, demo.interval)
+        return frame
+
+    if upper_interval == "1W":
+        payload = request_alpha_vantage(
+            {
+                "function": "TIME_SERIES_WEEKLY",
+                "symbol": demo.symbol,
+            }
+        )
+        return alpha_vantage_series_to_frame(payload, "Weekly Time Series")
+
+    raise ValueError(
+        f"Unsupported Alpha Vantage interval: {demo.interval}. "
+        "Current key supports daily, 2d, and weekly demo feeds."
+    )
+
+
 def normalize_candles(df: pd.DataFrame, lookback: int) -> pd.DataFrame:
     if df.empty:
         raise ValueError("No candles returned by provider.")
@@ -414,6 +523,8 @@ def fetch_candles(demo: Demo, extra: int = 8) -> pd.DataFrame:
         raw = fetch_binance(demo, limit)
     elif demo.provider == "bybit":
         raw = fetch_bybit(demo, limit)
+    elif demo.provider == "alphavantage":
+        raw = fetch_alpha_vantage(demo, limit)
     elif demo.provider == "csv":
         raw = fetch_csv(demo, limit)
     else:
